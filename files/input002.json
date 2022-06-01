@@ -1,0 +1,11 @@
+{
+    "id": 420,
+    "info": {
+        "name": "rita",
+        "country": "Mexico"
+    },
+    "data": {
+        "bmi": 13.4,
+        "age": 6
+    }
+}
