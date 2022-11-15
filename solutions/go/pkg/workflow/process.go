@@ -34,14 +34,16 @@ func process(inputCh <-chan inputData, outputCh chan<- outputData, statusCh chan
 }
 
 // newParse is a factory method for a parse.Parse
-func newParse(bytes []byte) (parse.Parse, error) {
-	parserA, err := a.NewInput(bytes)
-	if err == nil {
-		return parserA, nil
+func newParse(bytes []byte) (p parse.Parse, err error) {
+	parsers := []func(bytes []byte) (parse.Parse, error){
+		a.NewInput,
+		b.NewInput,
 	}
-	parserB, err := b.NewInput(bytes)
-	if err == nil {
-		return parserB, nil
+
+	for _, parser := range parsers {
+		if p, err = parser(bytes); err == nil {
+			return p, nil
+		}
 	}
 	return nil, err
 }

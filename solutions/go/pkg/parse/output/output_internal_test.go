@@ -15,8 +15,8 @@ func TestOutputValidate(t *testing.T) {
 		{
 			"Should not return an error for a valid output",
 			Output{
-				Id:   0,
-				Name: "",
+				Id:   1,
+				Name: "name",
 				Age:  38,
 				Bmi:  "healthy",
 			},
@@ -32,7 +32,9 @@ func TestOutputValidate(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			err := c.output.validate()
 			if c.expectErr {
-				assert.NotNil(t, err)
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
 			}
 		})
 	}
